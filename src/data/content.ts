@@ -21,9 +21,19 @@ export interface CaseStudy {
   layout: "wide-top" | "split-left" | "split-right" | "wide-architectural";
 }
 
+export interface TimelineLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
 export interface TimelineEntry {
+  id: string;
   period: string;
-  text: string;
+  title: string;
+  summary: string;
+  bullets?: string[];
+  links?: TimelineLink[];
 }
 
 export interface SkillGroup {
@@ -182,51 +192,166 @@ export const CASE_STUDIES: CaseStudy[] = [
 
 export const TIMELINE: TimelineEntry[] = [
   {
+    id: "wut-mini",
     period: "October 2023",
-    text: "Began a bachelor’s degree in Computer Science and Information Systems (English-taught) at the Faculty of Mathematics and Information Science (MiNI), Warsaw University of Technology.",
+    title: "Warsaw University of Technology (MiNI)",
+    summary:
+      "Started B.Sc. in Computer Science and Information Systems (English-taught).",
+    bullets: [
+      "Enrolled at the Faculty of Mathematics and Information Science (MiNI), Warsaw University of Technology.",
+      "Continuing coursework in parallel with the University of Ulsan exchange and preparing a bachelor’s thesis on unsupervised clustering of exoplanet data.",
+      "Expected completion in February 2027, followed by plans to pursue a master’s degree.",
+    ],
   },
   {
+    id: "bryohive",
     period: "November 2025",
+    title: "Bryohive · BEST Hacking League, Warsaw",
+    summary:
+      "1st place in Hardware — modular, off-grid moss façade system.",
     // [TODO: public project link for Bryohive, if any]
-    text: "Bryohive, first place in Hardware at BEST Hacking League, Warsaw. A modular, off-grid moss façade system with sensor fusion and solar tracking.",
+    bullets: [
+      "Awarded 1st place in Hardware at BEST Hacking League in Warsaw.",
+      "Built a modular, off-grid moss façade system combining sensor fusion and solar tracking.",
+    ],
   },
   {
+    id: "rave",
     period: "January 2026",
+    title: "R.A.V.E. · BITEhack VII, Kraków",
+    summary:
+      "1st place in Robotics — two-player physical driving console.",
     // [TODO: public project link for R.A.V.E., if any]
-    text: "R.A.V.E. (Robotic Audio-Visual Entertainer), first place in Robotics at BITEhack VII, Kraków. A two-player physical driving console; I led the software and hardware architecture, including PID motor control in C++ and ESP-NOW feedback under 150 ms.",
+    bullets: [
+      "Led the software and hardware architecture for the Robotic Audio-Visual Entertainer (R.A.V.E.).",
+      "Implemented PID motor control in C++ and ESP-NOW feedback under 150 ms.",
+      "Stack: C++, PID motor control, ESP-NOW.",
+    ],
   },
   {
+    id: "pwc-poland",
     period: "February–June 2026",
-    text: "Generative AI Intern at PwC Poland (CTech / GenAI). Built AI products end-to-end, including AI Builders, a gamified LLM course I owned from design to production, and work on an internal chatbot / agent platform.",
+    title: "Generative AI Intern · PwC Poland",
+    summary:
+      "Built end-to-end AI products in the CTech / GenAI team.",
+    bullets: [
+      "Owned AI Builders, a gamified LLM course, from design through production.",
+      "Contributed to an internal chatbot and agent platform.",
+      "Worked within PwC Poland’s CTech / GenAI team.",
+    ],
   },
   {
+    id: "rackmedic-timeline",
     period: "April 2026",
-    text: "RackMedic at StarkHacks, Purdue University. (See case study.)",
+    title: "RackMedic · StarkHacks, Purdue University",
+    summary:
+      "1st Microsoft Track, 2nd Best Use of Viam — autonomous data-center maintenance robot.",
+    bullets: [
+      "Owned the orchestration layer tying distributed thermal sensors, anomaly triage, robot control, and the operator dashboard together.",
+      "Visually servoed a rover to AprilTag / ArUco markers for robotic-arm blade extraction, writing custom arm-control scripts from scratch to work around a sponsor bug.",
+      "Built with Mateusz, Svieta, and Denis; helped organize sponsorship (TME, PwC CTech, WUT) and team media.",
+      "Stack: ESP32-C6 (ESP-IDF, FreeRTOS, MQTT), AprilTag / ArUco, Next.js, Auth0, WebSockets.",
+    ],
+    links: [
+      { label: "Case study", href: "#rackmedic" },
+      {
+        label: "Devpost",
+        href: "https://devpost.com/software/rackmedic",
+        external: true,
+      },
+      {
+        label: "WUT (EN)",
+        href: "https://eng.pw.edu.pl/News/WUT-students-conquer-the-USA",
+        external: true,
+      },
+    ],
   },
   {
+    id: "voiceops-timeline",
     period: "June 2026",
-    text: "VoiceOps Map at EDTH Warsaw. (See case study.)",
+    title: "VoiceOps Map · EDTH Warsaw",
+    summary:
+      "1st place — on-device push-to-talk voice reporting to a shared live map.",
+    bullets: [
+      "Built with the HardCounter team (Aleksander Jeżowski, Denis Lisovytskiy, Rafał Lasota) on a challenge set by Lysk.",
+      "Transcribes push-to-talk field reports, extracts intent, geocodes locations, and updates a shared live map.",
+      "Processes voice on-device on a wearable Raspberry Pi 5 so raw audio stays on the unit.",
+    ],
+    links: [
+      { label: "Case study", href: "#voiceops-map" },
+      {
+        label: "Demo",
+        href: "https://lnkd.in/d7Y_Aq_D",
+        external: true,
+      },
+      {
+        label: "HardCounter GitHub",
+        href: "https://github.com/HardCounter",
+        external: true,
+      },
+    ],
   },
   {
-    period: "July 2026",
-    text: "Joined Unleash Live as Full Stack AI Engineer.",
+    id: "unleash-live-timeline",
+    period: "July 2026–present",
+    title: "Full Stack AI Engineer · Unleash Live",
+    summary:
+      "Remote (Sydney) — live video analytics and Developer Platform.",
+    bullets: [
+      "Enhance the Developer Platform for AI model training, evaluation, and annotation workflows (vision tasks, dataset slices, evaluation matrices).",
+      "Ship full-stack features end-to-end across backend APIs, React / TypeScript UI, and computer-vision tooling (misdetection/misclassification flows, classification-task support).",
+      "Build and harden deployment and inference paths on AWS (SageMaker, Bedrock).",
+      "Stack: TypeScript, React, Python, AWS (SageMaker, Bedrock), Azure, computer vision, Docker.",
+    ],
+    links: [{ label: "Case study", href: "#unleash-live" }],
   },
   {
+    id: "scalentic",
     period: "September 2026–present",
+    title: "Part-time Full Stack AI Developer · Scalentic",
     // [TODO: Scalentic company URL, if Piotr wants the name linked]
-    text: "Part-time Full Stack AI Developer at Scalentic, in parallel with Unleash Live and the Korea exchange.",
+    summary:
+      "In parallel with Unleash Live and the Korea exchange.",
   },
   {
+    id: "uou-exchange",
     period: "September–23 December 2026",
-    text: "Exchange at the University of Ulsan, South Korea (GKS). Continued coursework at Warsaw University of Technology in parallel, and prepared a bachelor’s thesis on unsupervised clustering of exoplanet data.",
+    title: "Exchange · University of Ulsan, South Korea (GKS)",
+    summary:
+      "GKS exchange semester alongside WUT coursework and thesis prep.",
+    bullets: [
+      "Exchange semester at the University of Ulsan, South Korea (GKS).",
+      "Continued coursework at Warsaw University of Technology in parallel.",
+      "Prepared a bachelor’s thesis on unsupervised clustering of exoplanet data.",
+    ],
   },
   {
+    id: "miniband-timeline",
     period: "October 2026",
-    text: "MiniBand at D4D × EDTH, Seoul. (See case study.)",
+    title: "MiniBand · D4D × EDTH, Seoul",
+    summary:
+      "Edge detection and depth with compact BLE 3D scene delta updates.",
+    bullets: [
+      "Ran detection and depth models on an Intel Arc iGPU instead of streaming full video.",
+      "Transmitted compact scene updates over a narrow BLE link when the operator’s predicted state diverged from observed state, reconstructing a shared 3D view.",
+      "Built in a four-person team with Andrii Olkhovych, Ikrombek Obloqulov, and Matteo Huck.",
+      "Stack: Intel Arc iGPU, edge detection & depth models, BLE.",
+    ],
+    links: [
+      { label: "Case study", href: "#miniband" },
+      {
+        label: "Repository",
+        href: "https://github.com/def4alt/minband",
+        external: true,
+      },
+    ],
   },
   {
+    id: "bsc-completion",
     period: "February 2027",
-    text: "Expected completion of the bachelor’s degree. After that, I plan to pursue a master’s.",
+    title: "Expected B.Sc. completion",
+    summary:
+      "Expected completion of the bachelor’s degree; planning to pursue a master’s.",
   },
 ];
 

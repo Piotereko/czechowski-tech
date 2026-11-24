@@ -47,4 +47,50 @@ test.describe("czechowski.tech portfolio smoke tests", () => {
     );
     await expect(cvLinks).toHaveCount(0);
   });
+
+  test("expands timeline entries inline with accessible controls and keyboard support", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    const timeline = page.locator("#timeline");
+
+    // Expandable entry starts collapsed and reveals bullets + links on click
+    const rackMedicTrigger = timeline.getByRole("button", {
+      name: /RackMedic/i,
+    });
+    await expect(rackMedicTrigger).toHaveAttribute("aria-expanded", "false");
+    const panelId = await rackMedicTrigger.getAttribute("aria-controls");
+    expect(panelId).toBeTruthy();
+
+    await rackMedicTrigger.click();
+    await expect(rackMedicTrigger).toHaveAttribute("aria-expanded", "true");
+
+    const rackMedicPanel = page.locator(`#${panelId}`);
+    await expect(
+      rackMedicPanel.getByText(/ESP32-C6/i)
+    ).toBeVisible();
+    await expect(
+      rackMedicPanel.locator('a[href="#rackmedic"]')
+    ).toBeVisible();
+
+    // Multiple entries can be open at once, including via keyboard (Enter)
+    const pwcTrigger = timeline.getByRole("button", {
+      name: /PwC Poland/i,
+    });
+    await expect(pwcTrigger).toHaveAttribute("aria-expanded", "false");
+    await pwcTrigger.focus();
+    await page.keyboard.press("Enter");
+    await expect(pwcTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(rackMedicTrigger).toHaveAttribute("aria-expanded", "true");
+    await expect(timeline.getByText(/AI Builders/i)).toBeVisible();
+
+    // Non-expandable entry (no extra details in site content) is not a button
+    await expect(
+      timeline.getByText(/Part-time Full Stack AI Developer · Scalentic/i)
+    ).toBeVisible();
+    await expect(
+      timeline.getByRole("button", { name: /Scalentic/i })
+    ).toHaveCount(0);
+  });
 });

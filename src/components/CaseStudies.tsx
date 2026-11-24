@@ -74,7 +74,7 @@ export function CaseStudies() {
           {CASE_STUDIES.map((study) => {
             if (study.layout === "wide-top") {
               return (
-                <article key={study.id} className="case-scene">
+                <article key={study.id} id={study.id} className="case-scene">
                   <div className="scene-wide-top">
                     <CaseFigure
                       study={study}
@@ -113,7 +113,7 @@ export function CaseStudies() {
 
             if (study.layout === "wide-architectural") {
               return (
-                <article key={study.id} className="case-scene">
+                <article key={study.id} id={study.id} className="case-scene">
                   <div className="scene-wide-arch">
                     <CaseFigure
                       study={study}
@@ -142,7 +142,7 @@ export function CaseStudies() {
                 : "scene-split scene-split--right";
 
             return (
-              <article key={study.id} className="case-scene">
+              <article key={study.id} id={study.id} className="case-scene">
                 <div className={splitClass}>
                   <div className="scene-split-visual">
                     <CaseFigure
